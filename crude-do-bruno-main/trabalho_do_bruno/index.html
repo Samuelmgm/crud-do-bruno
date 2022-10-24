@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link href="funcionario.html">
+    <link rel="stylesheet" href="Style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <script>
+        $(document).ready(function(){
+            $("#btron").click(function(){
+                $("body").removeClass();              
+                $("body").addClass("rave");
+        });
+            $("#btroff").click(function(){
+                $("body").removeClass("rave");
+        });
+    });  
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#btroff").hide();
+            $("#btron").click(function(){
+                $("#btron").hide();
+                $("#btroff").show();
+            });
+            $("#btroff").click(function(){
+                $("#btroff").hide();
+                $("#btron").show();
+            })
+        })
+    </script>
+</head>
+<body>
+    <ul class="nav-bar">
+        <li class="li"><a href="index.html">Home</a></li>
+        <li class="li"><a href="funcionario.html"> lista de Funcionários</a></li>
+      </ul>  
+    <form action="" method="post" class="div-login">
+        <label for="login">Login:</label><br>
+        <input type="text" id="login"><br>
+        <label for="pass">Password:</label><br>
+        <input type="password" name="Password" id="pass">
+        <button class="btn" type="submit">Login</button>
+        <a class="a" href="cadastro.html">Cadastrar</a>
+    </form>
+    <div>
+        <button id="btron">Modo Rave</button>
+        <button id="btroff">Modo Rave</button>
+    </div>
+</body>
+</html>
