@@ -27,11 +27,12 @@
                                 <td><?= $line["email"]?></td>
                                 <td><?= $line["funcao"]?></td>                                
                                 <td>
-                                    <a href='deletarfunc.php?id=<?php echo $line["id_funcionarios"]?>&action=delete'>Deletar</a> ---  
-                                    <a href='index.php?id=<?php echo $line["id_funcionarios"]?>&action=update'>Update</a>
+                                    <a href='deletarfunc.php?id=<?= $line["id_funcionarios"]?>&action=delete'>Deletar</a> ---  
+                                    <a href='index.php?id=<?= $line["id_funcionarios"]?>&action=update'>Update</a>
                                 </td>
                             </tr>
                         <?php 
+                        
                         }
                     mysqli_close($link);
         

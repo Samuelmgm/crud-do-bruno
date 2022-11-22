@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
     <?php
+       
         $funcao = array("Estagiário","Vendedor","Entregador","Farmacêutico");
         $enviofuncao = "";
         $nav = array("home" => "Home","funcionarios" => "Funcionários","produtos" => "Produtos","clientes" => "Clientes","fornecedores" => "Fornecedores","vendas" => "Vendas");  
+        $produtos = array("med"=>"Medicamentos","cos"=>"Cosméticos","limpeza"=>"Saneantes","comida"=>"Alimentos","coisas de saude"=>"Produtos para Saúde","pet" =>"Pet");
+        
         $nome_func = "";
         $cpf_func = "";
         $email_func = "";
-        $produtos = array("med"=>"Medicamentos","cos"=>"Cosméticos","limpeza"=>"Saneantes","comida"=>"Alimentos","coisas de saude"=>"Produtos para Saúde","pet" =>"Pet");
-        $action = "cadastro_funcionario.php";
-        $id = "";
 
+        $nome_prod = "";
+        $codigo_prod = "";
+        $preco_prod = "";
+        $quantidade_prod = "";
+        $tipo_prod = "";
+
+        $action = "cadastro_funcionario.php";  
+        $action_produto = "cadastro_produto.php";
+
+        $status = array("ativo" => "Ativo","desativado" => "Desativavdo");
+        $id = "";
+        
         if(isset($_GET["action"]) and $_GET["action"]=="update"){
-            include 'listafunc.php';
+            include 'updatefunc.php';
+            $action = "selecionar_func.php";
+        }
+           if(isset($_GET["action_produto"]) and $_GET["action_produto"]=="update"){ 
+            include 'update_prod.php';       
+            $action_produto = "selecionar_prod.php";
+               
            }
+        
     ?>
     <head>
         <link rel="stylesheet" href="Style.CSS">
@@ -43,11 +62,11 @@
             <legend>Cadastro de funcionário</legend>
             <form action="<?= $action?>" method="post">
                 <label for="nomefunc">Nome</label>
-                <input type="text" name="nome" id="nomefunc">
+                <input type="text" name="nome" id="nomefunc" value="<?= $nome_func ?>">
                 <label for="cpf">Cpf</label>
-                <input type="number" id="cpf" name="cpf">
+                <input type="number" id="cpf" name="cpf" value="<?= $cpf_func ?>">
                 <label for="email">E-mail</label>
-                <input type="text" id="email" name="email">
+                <input type="text" id="email" name="email" value="<?= $email_func ?>">
                 <label for="funcao">Função</label>
                 <select name="funcao" id="funcao">
                     <?php
@@ -57,8 +76,8 @@
                 </select>
                 <?php
                     if($id!=""){?>
-                        <input type="hidden" value="<?php echo $id;?>" name="id">
-                    <?php } ?>
+                        <input type="hidden" value="<?= $id;?>" name="id">
+                <?php } ?>
                 <button type="submit" class="btn">Registrar</button>          
             </form>          
             <div>
@@ -70,24 +89,33 @@
           
         <fieldset id="produtos" class="content">
             <legend>Registro de Produto</legend>
-            <form action="" method="post">
+            <form action="<?= $action_produto?>" method="post">
                 <label for="nome_prod">Nome do produtos:</label>
-                <input type="text" id="nome_prod" name="nome do produto">
+                <input type="text" id="nome_prod" name="nome_prod" value="<?= $nome_prod ?>">
                 <label for="cod_prod">Código do Produto:</label>
-                <input type="number" id="cod_prod" name="codigo do produto">
+                <input type="number" id="cod_prod" name="codigo_prod" value="<?= $codigo_prod?>">
                 <label for="preco_prod">Preço:</label>
-                <input type="number" id="preco_prod" name="preco_prod">
+                <input type="text" id="preco_prod" name="preco_prod" value="<?= $preco_prod?>">
                 <label for="quant_prod">Quantidade:</label>
-                <input type="number" name="quant_prod" id="quant_prod">
-                <label for="prod">Tipo do Produto</label>
-                <select name="produto" id="prod">
+                <input type="number" name="quant_prod" id="quant_prod" value="<?= $quantidade_prod?>">
+                <label for="tipo_prod">Tipo do Produto</label>
+                <select name="tipo" id="tipo_prod">
                     <?php
                         foreach($produtos as $key => $value){?>
-                            <option value="<?php $produtos[$key] ?>"><?= $value?></option>
+                            <option value="<?= $key ?>"><?= $value?></option>
                     <?php } ?>               
                 </select>
+                <?php
+                    if($id!=""){?>
+                        <input type="hidden" value="<?= $id;?>" name="id">
+                <?php } ?>
                     <button type="submit" class="btn">Registrar</button>
             </form>
+            <div>
+                <?php
+                    include "lista_prod.php";
+                ?>
+            </div>   
         </fieldset>
         <fieldset id="clientes" class="content">
             <legend>Registro de clientes</legend>
@@ -109,11 +137,13 @@
                 <label for="tel_fornecedor">Telefone:</label>
                 <input type="number" id="tel_fornecedor" name="tel_fornecedor">
                 <p>Status</p>
-                <input type="radio" value="ativado" id="ativo" name="status">
-                <label for="ativo">Ativo</label>
-                <input type="radio" value="desativado" id="desativado" name="status">
-                <label for="desativado">Desativado</label>
-                <button type="submit">Registrar</button>
+                    <?php 
+                        foreach($status as $key => $value){ ?>
+                            <label for="<?= $key ?>"><?= $value ?></label>
+                            <input type="radio" value="<?= $value ?>" name="status" id="<?= $key ?>">       
+                    <?php } ?>
+                                       
+                <button type="submit" class="btn">Registrar</button>
             </form>
         </fieldset>
         <fieldset id="vendas" class="content">
@@ -141,6 +171,8 @@
         </div>
         <?php
             print_r($_POST);
+            print_r($_GET);
+            print_r($row);
         ?>
     </body>
 </html>
