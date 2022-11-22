@@ -1,0 +1,30 @@
+   
+    $(document).ready(function(){
+        $("#btron").click(function(){
+            $("body").removeClass();              
+            $("body").addClass("rave");
+        });
+        $("#btroff").click(function(){
+            $("body").removeClass("rave");
+        });
+    });
+
+    $(document).ready(function(){
+        $(".content").hide();
+        $("#home").show();
+        $("a").click(function(){
+            $(".content").hide();
+            $("#"+$(this).attr("for")).show();                
+        });  
+    });   
+    $(document).ready(function(){
+        $("#btroff").hide();
+        $("#btron").click(function(){
+            $("#btron").hide();
+            $("#btroff").show();
+        });
+        $("#btroff").click(function(){
+            $("#btroff").hide();
+            $("#btron").show();
+        })
+    })
